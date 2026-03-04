@@ -17,7 +17,7 @@ class ExamenRemoteDataSource @Inject constructor(
         race: String?,
     ): Result<ExamenDto> {
         try {
-            val response = api.getCharacters(page, limit, name, gender, race)
+            val response = api.getExamen(page, limit, name, gender, race)
             if (!response.isSuccessful) {
                 return Result.failure(Exception("Error de red ${response.code()}"))
             }
@@ -31,7 +31,7 @@ class ExamenRemoteDataSource @Inject constructor(
 
     suspend fun getCharacterDetail(id: Int): Result<ExamenDto> {
         try {
-            val response = api.getCharacterDetail(id)
+            val response = api.getExamen(id)
             if (!response.isSuccessful) {
                 return Result.failure(Exception("Error de red ${response.code()}"))
             }
