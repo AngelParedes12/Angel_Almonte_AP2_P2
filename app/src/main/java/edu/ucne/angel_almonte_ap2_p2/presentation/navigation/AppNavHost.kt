@@ -4,8 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import edu.ucne.angel_almonte_ap2_p2.presentation.tareas.details.DetailExamenScreen
-import edu.ucne.angel_almonte_ap2_p2.presentation.tareas.list.ListExamenScreen
+import edu.ucne.angel_almonte_ap2_p2.presentation.tareas.details.DetailJugadorScreen
+import edu.ucne.angel_almonte_ap2_p2.presentation.tareas.list.ListJugadorScreen
 
 @Composable
 fun AppNavHost(
@@ -13,18 +13,21 @@ fun AppNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Screen.ExamenList
+        startDestination = Screen.JugadorList
     ) {
-        composable<Screen.ExamenList> {
-            ListExamenScreen(
-                onPlanetClick = { examenId ->
-                    navController.navigate(Screen.ExamenDetail(examenId))
+        composable<Screen.JugadorList> {
+            ListJugadorScreen(
+                onJugadorClick = { id ->
+                    navController.navigate(Screen.JugadorDetail(id = id))
+                },
+                onCreateJugador = {
+                    navController.navigate(Screen.JugadorDetail(id = 0))
                 }
             )
         }
 
-        composable<Screen.ExamenDetail> {
-            DetailExamenScreen(
+        composable<Screen.JugadorDetail> {
+            DetailJugadorScreen(
                 onBack = {
                     navController.navigateUp()
                 }

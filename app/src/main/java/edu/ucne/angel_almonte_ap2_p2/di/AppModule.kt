@@ -6,9 +6,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import edu.ucne.angel_almonte_ap2_p2.data.remote.ExamenApi
-import edu.ucne.angel_almonte_ap2_p2.data.repository.ExamenRepositoryImpl
-import edu.ucne.angel_almonte_ap2_p2.domain.repository.ExamenRepository
+import edu.ucne.angel_almonte_ap2_p2.data.remote.JugadoresAPi
+import edu.ucne.angel_almonte_ap2_p2.data.remote.remoteDatasource.JugadorRemoteDataSource
+import edu.ucne.angel_almonte_ap2_p2.data.repository.JugadorRepositoryImpl
+import edu.ucne.angel_almonte_ap2_p2.domain.repository.JugadorRepository
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
@@ -28,17 +29,17 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideApi(moshi: Moshi): ExamenApi {
+    fun provideApi(moshi: Moshi): JugadoresAPi {
         return Retrofit.Builder()
-            .baseUrl("https:/Examen/")
+            .baseUrl("https://gestionhuacalesapi.azurewebsites.net/")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
-            .create(ExamenApi::class.java)
+            .create(JugadoresAPi::class.java)
     }
-//
-//    @Provides
-//    @Singleton
-//    fun provideRepository(api: ExamenApi): ExamenRepository {
-//        return ExamenRepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideRepository(dataSource: JugadorRemoteDataSource): JugadorRepository {
+        return JugadorRepositoryImpl(dataSource)
     }
-//}
+}
